@@ -29,13 +29,12 @@ function init() {
   // startGame();
   createjs.Ticker.setFPS(80);
   createjs.Ticker.addEventListener("tick", tick);
+  // stage.addEventListener("click", fly);
   stage.addEventListener("click", fly);
 
 }
 
 function tick() {
-  // console.log("Tick");
-  // console.log(bitmap.x);
   bitmap.x += 1;
   stage.update();
   if (bitmap.x > 800) {
@@ -44,11 +43,18 @@ function tick() {
   }
 }
 
-function fly(event) {
-  bitmap.y += -17;
-  stage.update();
-}
+// function fly(event) {
+//   bitmap.y += -17;
+//   stage.update();
+// }
 
+function fly() {
+  createjs.Tween.get(bitmap, {loop: false})
+    .to({y: bitmap.y}, 500, createjs.Ease.getPowInOut(3))
+    .to({y: bitmap.y -=100}, 1000, createjs.Ease.getPowInOut(3))
+    .to({y: bitmap.y +=100}, 1000, createjs.Ease.getPowInOut(3))
+
+}
 // function startGame() {
 //   hero = new Hero(character);
 //   stage.addChild(hero);
