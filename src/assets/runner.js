@@ -48,16 +48,16 @@ function init() {
 }
 
 function tick() {
-  splat.x -= 1;
+  splat.x -= Math.random() * (4) + 1;
   bitmap.x += 1;
   move();
   stage.update();
-  if (bitmap.x > 1000) {
-    bitmap.x = 0;
+  if (bitmap.x > 900) {
+    bitmap.x = -59;
     bitmap.y = 350;
   }
-  if (bitmap.x < -20) {
-    bitmap.x = 0;
+  if (bitmap.x < -100) {
+    bitmap.x = -59;
     bitmap.y;
   }
   if (bitmap.y > 600) {
@@ -65,17 +65,17 @@ function tick() {
     bitmap.y = 350;
   }
   if (splat.x > 1000) {
-    splat.x = 800;
-    splat.y = 500;
+    splat.x = 1000;
+    splat.y = Math.random() * (300) + 200;
   }
   if (splat.x < -20) {
-    splat.x = 800;
-    splat.y = 500;
+    splat.x = 1000;
+    splat.y = Math.random() * (300) + 200;
   }
 
   if (splat.x < bitmap.x + bitWidth && splat.x + splatWidth > bitmap.x && splat.y < bitmap.y + bitHeight && splat.y + splatHeight > bitmap.y) {
     splat.x = 1000;
-    splat.y = 500;
+    splat.y = Math.random() * (300) + 200;
     playerScore.text = parseInt(playerScore.text + 100);
     stage.update();
   }
