@@ -19,7 +19,7 @@ function init() {
   character.src = "assets/catboy.png";
   bitmap = new createjs.Bitmap(character);
   bitmap.x = 0;
-  bitmap.y = 250;
+  bitmap.y = 350;
   stage.addChild(bitmap);
   stage.update();
 
@@ -38,7 +38,7 @@ function init() {
   createjs.Ticker.setFPS(80);
   createjs.Ticker.addEventListener("tick", tick);
   // stage.addEventListener("click", fly);
-  stage.addEventListener("click", jump);
+  // stage.addEventListener("click", jump);
 
   window.onkeyup = keyUpHandler;
   window.onkeydown = keyDownHandler;
@@ -46,25 +46,33 @@ function init() {
 }
 
 function tick() {
-  // bitmap.x += 1;
+  bitmap.x += 1;
   move();
   stage.update();
-  if (bitmap.x > 800) {
-    bitmap.x = 0
-    bitmap.y = 250;
+  if (bitmap.x > 1000) {
+    bitmap.x = 0;
+    bitmap.y = 350;
+  }
+  if (bitmap.x < -20) {
+    bitmap.x = 0;
+    bitmap.y;
+  }
+  if (bitmap.y > 600) {
+    bitmap.x = 0;
+    bitmap.y = 350;
   }
 }
 
 // function fly(event) {
-//   bitmap.y += -17;
+//   bitmap.y += -300;
 //   stage.update();
 // }
 
 function jump() {
   createjs.Tween.get(bitmap, {loop: false})
     .to({y: bitmap.y}, 500, createjs.Ease.getPowInOut(3))
-    .to({y: bitmap.y -=100}, 1000, createjs.Ease.getPowInOut(3))
-    .to({y: bitmap.y +=100}, 1000, createjs.Ease.getPowInOut(3))
+    .to({y: bitmap.y -=200}, 1000, createjs.Ease.getPowInOut(7))
+    .to({y: bitmap.y +=200}, 1000, createjs.Ease.getPowInOut(7))
 
 }
 
@@ -91,7 +99,8 @@ function keyUpHandler(e) {
 function move() {
   if(rightArrow) bitmap.x += 5;
   if(leftArrow) bitmap.x -= 5;
-  if(upArrow) bitmap.y -= 5;
-  if(downArrow) bitmap.y += 5;
+  // if(upArrow) bitmap.y -= 5;
+  if(upArrow) jump();
+  // if(downArrow) bitmap.y += 5;
   stage.update();
 }
