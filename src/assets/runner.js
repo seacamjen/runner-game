@@ -52,12 +52,12 @@ function init() {
   apple.x = 1000;
   apple.y = 300;
 
-  var groundImg = new Image();
-  groundImg.src = "assets/platform.jpg";
-  ground = new createjs.Shape();
-  ground.graphics.beginFill(groundImg).drawRect(0, 0, 2000, 98);
-  ground.tileW = 100;
-  ground.y = 502;
+  // var groundImg = new Image();
+  // groundImg.src = "assets/platform.jpg";
+  // ground = new createjs.Shape();
+  // ground.graphics.beginFill(groundImg).drawRect(0, 0, 2000, 98);
+  // ground.tileW = 100;
+  // ground.y = 502;
 
   playerScore = new createjs.Text('0', 'bold 20px Arial', '#f90014');
   playerScore.x = 500;
@@ -98,7 +98,6 @@ function tick() {
   apple.x -= Math.random() * (4) + 1;
   bitmap.x += 1;
   move();
-  stage.update();
   if (bitmap.x > 900) {
     bitmap.x = -59;
     bitmap.y = 350;
@@ -140,6 +139,10 @@ function tick() {
     apple.y = Math.random() * (300) + 200;
     playerScore.text = parseInt(playerScore.text + 100);
     stage.update();
+  }
+
+  if(playerScore.text > 300) {
+
   }
 
 }
