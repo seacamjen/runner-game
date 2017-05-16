@@ -29,10 +29,14 @@ function init() {
   splatImg = new Image();
   splatImg.src = "assets/stickeysplat.jpg";
   splat = new createjs.Bitmap(splatImg);
-  splat.x = 800;
+  splat.x = 1000;
   splat.y = 500;
 
-  stage.addChild(splat, bitmap);
+  playerScore = new createjs.Text('0', 'bold 20px Arial', '#f90014');
+  playerScore.x = 500;
+  playerScore.y = 100;
+
+  stage.addChild(splat, bitmap, playerScore);
   stage.update();
 
   createjs.Ticker.setFPS(80);
@@ -70,16 +74,13 @@ function tick() {
   }
 
   if (splat.x < bitmap.x + bitWidth && splat.x + splatWidth > bitmap.x && splat.y < bitmap.y + bitHeight && splat.y + splatHeight > bitmap.y) {
-    splat.x = 800;
+    splat.x = 1000;
     splat.y = 500;
+    playerScore.text = parseInt(playerScore.text + 100);
     stage.update();
   }
-}
 
-// function fly(event) {
-//   bitmap.y += -300;
-//   stage.update();
-// }
+}
 
 function jump() {
   createjs.Tween.get(bitmap, {loop: false})
