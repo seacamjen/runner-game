@@ -1,6 +1,39 @@
-var stage, character, catboy, catboyImg, gekko, gekkoImg, owlette, owletteImg, bitmap, bitWidth, bitHeight, splatImg, splat, splatWidth = 50, splatHeight = 47, appleImg, apple, appleWidth = 48, appleHeight = 50, background, backgroundImg, backgroundWin, backgroundWinImg;
+var stage;
+var character;
+var catboy;
+var catboyImg;
+var gekko;
+var gekkoImg;
+var owlette;
+var owletteImg;
+var bitmap;
+var bitWidth;
+var bitHeight;
+var splatImg;
+var splat;
+var splatWidth = 50;
+var splatHeight = 47;
+var goldStarImg;
+var goldStar;
+var goldStarWidth = 50;
+var goldStarHeight = 50;
+var appleImg;
+var apple;
+var appleWidth = 48;
+var appleHeight = 50;
+var background;
+var backgroundImg;
+var backgroundWin;
+var backgroundWinImg;
 
-var KEYCODE_UP = 38, KEYCODE_LEFT = 37, KEYCODE_RIGHT = 39, KEYCODE_DOWN = 40, leftArrow = false, rightArrow = false, upArrow = false, downArrow = false;
+var KEYCODE_UP = 38;
+var KEYCODE_LEFT = 37;
+var  KEYCODE_RIGHT = 39;
+var KEYCODE_DOWN = 40;
+var leftArrow = false;
+var rightArrow = false;
+var upArrow = false;
+var downArrow = false;
 
 function init() {
   stage = new createjs.Stage("demoCanvas");
@@ -34,6 +67,12 @@ function init() {
   apple = new createjs.Bitmap(appleImg);
   apple.x = 1000;
   apple.y = 300;
+
+  goldStarImg = new Image();
+  goldStarImg.src = "assets/goldstar.png";
+  goldStar = new createjs.Bitmap(goldStarImg);
+  goldStar.x = 1000;
+  goldStar.y = 300;
 
   backgroundImg = new Image();
   backgroundImg.src = "assets/background_pjmasks.jpg";
@@ -79,7 +118,7 @@ function addCatboy() {
   bitWidth = 107;
   bitHeight = 200;
 
-  stage.addChild(background, splat, apple, bitmap, playerScore)
+  stage.addChild(background, splat, apple, goldStar, bitmap, playerScore)
   stage.update();
 
   createjs.Ticker.setFPS(80);
@@ -124,6 +163,7 @@ function tick() {
   }
   apple.x -= Math.random() * (4) + 1;
   bitmap.x += 1;
+  goldStar.x -= Math.random() * (7) + 3;
   move();
   if (bitmap.x > 900) {
     bitmap.x = -59;
@@ -157,6 +197,14 @@ function tick() {
     apple.x = 1000;
     apple.y = Math.random() * (300) + 200;
   }
+  if (goldStar.x > 1000) {
+    goldStar.x = 1000;
+    goldStar.y = Math.random() * (300) + 200;
+  }
+  if (goldStar.x < -20) {
+    goldStar.x = 1000;
+    goldStar.y = Math.random() * (300) + 200;
+  }
 
   if (splat.x < bitmap.x + bitWidth && splat.x + splatWidth > bitmap.x && splat.y < bitmap.y + bitHeight && splat.y + splatHeight > bitmap.y) {
     splat.x = 1000;
@@ -172,6 +220,13 @@ function tick() {
     stage.update();
   }
 
+  if (goldStar.x < bitmap.x + bitWidth && goldStar.x + goldStarWidth > bitmap.x && goldStar.y < bitmap.y + bitHeight && goldStar.y + goldStarHeight > bitmap.y) {
+    goldStar.x = 1000;
+    goldStar.y = Math.random() * (300) + 200;
+    playerScore.text = parseInt(playerScore.text + 300);
+    stage.update();
+  }
+
   if(playerScore.text > 2000) {
     winner();
   }
@@ -183,7 +238,7 @@ function tick() {
 }
 
 function winner() {
-  stage.removeChild(background, splat, apple, bitmap, playerScore);
+  stage.removeChild(background, splat, apple, goldStar, bitmap, playerScore);
   stage.update();
   var win = new createjs.Text('Winner', 'bold 60px Arial', '#f90014');
   win.x = 450;
@@ -193,7 +248,7 @@ function winner() {
 }
 
 function loser() {
-  stage.removeChild(splat, apple, bitmap, playerScore);
+  stage.removeChild(splat, apple, goldStar, bitmap, playerScore);
   stage.update();
   var lose = new createjs.Text('Try Again', 'bold 60px Arial', '#f90014');
   lose.x = 400;
