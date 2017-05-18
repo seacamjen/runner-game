@@ -25,6 +25,8 @@ var background;
 var backgroundImg;
 var backgroundWin;
 var backgroundWinImg;
+// var superPower;
+
 
 var KEYCODE_UP = 38;
 var KEYCODE_LEFT = 37;
@@ -210,6 +212,7 @@ function tick() {
     splat.x = 1000;
     splat.y = Math.random() * (300) + 200;
     playerScore.text = parseInt(playerScore.text - 100);
+    // superPower = false;
     stage.update();
   }
 
@@ -223,7 +226,7 @@ function tick() {
   if (goldStar.x < bitmap.x + bitWidth && goldStar.x + goldStarWidth > bitmap.x && goldStar.y < bitmap.y + bitHeight && goldStar.y + goldStarHeight > bitmap.y) {
     goldStar.x = 1000;
     goldStar.y = Math.random() * (300) + 200;
-    playerScore.text = parseInt(playerScore.text + 300);
+    // superPower = true;
     stage.update();
   }
 
