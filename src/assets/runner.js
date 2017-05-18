@@ -25,7 +25,7 @@ var background;
 var backgroundImg;
 var backgroundWin;
 var backgroundWinImg;
-// var superPower;
+var superPower = false;
 
 
 var KEYCODE_UP = 38;
@@ -165,7 +165,11 @@ function tick() {
   }
   apple.x -= Math.random() * (4) + 1;
   bitmap.x += 1;
-  goldStar.x -= Math.random() * (7) + 3;
+  if (playerScore.text > 1400) {
+    goldStar.x -= Math.random() * (7) + 3;
+  } else {
+    goldStar.x += 100;
+  }
   move();
   if (bitmap.x > 900) {
     bitmap.x = -59;
@@ -212,7 +216,7 @@ function tick() {
     splat.x = 1000;
     splat.y = Math.random() * (300) + 200;
     playerScore.text = parseInt(playerScore.text - 100);
-    // superPower = false;
+    superPower = false;
     stage.update();
   }
 
@@ -226,7 +230,7 @@ function tick() {
   if (goldStar.x < bitmap.x + bitWidth && goldStar.x + goldStarWidth > bitmap.x && goldStar.y < bitmap.y + bitHeight && goldStar.y + goldStarHeight > bitmap.y) {
     goldStar.x = 1000;
     goldStar.y = Math.random() * (300) + 200;
-    // superPower = true;
+    superPower = true;
     stage.update();
   }
 
@@ -279,9 +283,16 @@ function keyUpHandler(e) {
 }
 
 function move() {
-  if(rightArrow) bitmap.x += 5;
-  if(leftArrow) bitmap.x -= 5;
-  if(upArrow) bitmap.y -= 5;
-  if(downArrow) bitmap.y += 5;
+  if (superPower === false) {
+    if(rightArrow) bitmap.x += 5;
+    if(leftArrow) bitmap.x -= 5;
+    if(upArrow) bitmap.y -= 5;
+    if(downArrow) bitmap.y += 5;
+  } else if ( superPower === true) {
+    if(rightArrow) bitmap.x += 10;
+    if(leftArrow) bitmap.x -= 10;
+    if(upArrow) bitmap.y -= 10;
+    if(downArrow) bitmap.y += 10;
+  }
   stage.update();
 }
