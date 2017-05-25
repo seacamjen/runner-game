@@ -135,7 +135,7 @@ function addOwlette() {
   bitWidth = 186;
   bitHeight = 200;
 
-  stage.addChild(background, splat, apple, bitmap, playerScore)
+  stage.addChild(background, splat, apple, goldStar, bitmap, playerScore)
   stage.update();
 
   createjs.Ticker.setFPS(80);
@@ -150,7 +150,7 @@ function addGekko() {
   bitWidth = 120;
   bitHeight = 200;
 
-  stage.addChild(background, splat, apple, bitmap, playerScore)
+  stage.addChild(background, splat, apple, bitmap, goldStar, playerScore)
   stage.update();
 
   createjs.Ticker.setFPS(80);
